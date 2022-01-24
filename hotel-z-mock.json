@@ -1,0 +1,248 @@
+{
+  "uuid": "f3f95b12-daf8-4a6a-9c47-ebfed2d8f099",
+  "lastMigration": 19,
+  "name": "Hotel z mock",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 8090,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "732a1f9e-f1cd-44d6-93e2-b1c78633a1e4",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "rooms",
+      "responses": [
+        {
+          "uuid": "225c3748-b231-41a0-8ecd-cb0961a10a6b",
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Economy 1\",\n        \"price\": {{faker 'datatype.number'}},\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Economy 2\",\n        \"price\": 12,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Economy 3\",\n        \"price\": 15,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Standart 1\",\n        \"price\": 20,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Standart 2\",\n        \"price\": 25,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Standart 3\",\n        \"price\": 30,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Business 1\",\n        \"price\": 35,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 8,\n        \"name\": \"Business 2\",\n        \"price\": 40,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 9,\n        \"name\": \"Business 3\",\n        \"price\": 45,\n        \"state\": \"booked\"\n    },\n    {\n        \"id\": 10,\n        \"name\": \"President lux 1\",\n        \"price\": 85,\n        \"state\": \"available\"\n    },\n    {\n        \"id\": 11,\n        \"name\": \"President lux 2\",\n        \"price\": 100,\n        \"state\": \"available\"\n    }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Rooms List",
+          "headers": [
+            {
+              "key": "Hotel-Z-Id",
+              "value": "17"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7fe29310-8a51-47a4-acfa-6482710c33ce",
+          "body": "[]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Empty list",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Token",
+              "value": "abc123",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "dff5e0ff-eb98-480b-a429-2743e117473c",
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Economy 1\",\n        \"price\": 10,\n        \"state\": \"booked\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Standart 1\",\n        \"price\": 20,\n        \"state\": \"booked\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Business 1\",\n        \"price\": 35,\n        \"state\": \"booked\"\n    },\n    {\n        \"id\": 10,\n        \"name\": \"President lux 1\",\n        \"price\": 85,\n        \"state\": \"available\"\n    }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "1 available",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "type",
+              "value": "booked",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "883ada55-d91d-457e-a9e1-364d3b2f06ac",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "bookings",
+      "responses": [
+        {
+          "uuid": "0c0414fa-cc72-4f52-aa1b-ece6c4f9ab83",
+          "body": "{\n    \"id\": 3,\n    \"room\": {\n        \"id\": {{body 'roomId'}},\n        \"name\": \"Mock room\",\n        \"price\": 999,\n        \"state\": \"booked\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d3c80cad-f435-4520-8e32-5042c8745459",
+          "body": "No such room",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "No such room",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "roomId",
+              "value": "15",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "b551f5c6-f087-4cc0-8436-e2d7daaa2777",
+          "body": "Room is already booked",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Already booked",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "roomId",
+              "value": "7",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d42485d3-d298-425e-a4c3-e64a84158ef4",
+          "body": "{\n  \"status\": \"Internal error\",\n  \"message\": \"Что-то пошло не так\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "roomId",
+              "value": "500",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "3bcc224e-49ca-4962-9550-7189e05c7506",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "roomId",
+              "value": "404",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8bb025cf-196f-4b14-9139-451bc5de9576",
+      "documentation": "",
+      "method": "delete",
+      "endpoint": "bookings/:bookId",
+      "responses": [
+        {
+          "uuid": "78830f4b-0cfc-4999-a239-2822b2a69524",
+          "body": "{\n    \"id\": {{urlParam 'bookId'}},\n    \"room\": {\n        \"id\": 1,\n        \"name\": \"Economy 1\",\n        \"price\": 10,\n        \"state\": \"available\"\n    }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
