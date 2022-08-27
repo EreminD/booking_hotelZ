@@ -1,1 +1,0 @@
-web: cd hotel-z && npm run start:prod

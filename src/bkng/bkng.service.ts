@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { map, Observable } from 'rxjs';
+import * as config from '../config.json'
 
 @Injectable()
 export class BkngService {
-  private readonly ROOMS_URL: string = 'http://localhost:8082/rooms'
-  private readonly BOOKINGS_URL: string = 'http://localhost:8082/bookings' 
+  private readonly HOTEL_URL = config.hotelUrl;
+  private readonly ROOMS_URL: string = `${this.HOTEL_URL}/rooms`
+  private readonly BOOKINGS_URL: string = `${this.HOTEL_URL}/bookings`
   private readonly bookings: Array<any> = [] 
 
   constructor(private httpService: HttpService) {
